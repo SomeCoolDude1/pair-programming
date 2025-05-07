@@ -3,14 +3,14 @@ import { calculatePayslip, Payslip, DEDUCTION_RATES, Deductions, Salary } from "
 test("ein 16 jähriger Lerneneder mit einem Monatsgehalt von 700.-", () => {
         // Arrange
         const salary ={
-            born: new Date(Date.parse("2007-01-01 00:00:00+01:00")),
-            payday: new Date(Date.parse("2024-28-12 23:59:59+01:00")),
+            born: new Date(Date.parse("2009-01-01 00:00:00+00:00")),
+            payday: new Date(Date.parse("2024-12-28 23:59:59+00:00")),
             gross: 700,
         };
         const exprected = {
             salary: {
-                born: new Date(Date.parse("2007-01-01 00:00:00+01:00")),
-                payday: new Date(Date.parse("2024-28-12 23:59:59+01:00")),
+                born: new Date(Date.parse("2009-01-01 00:00:00+00:00")),
+                payday: new Date(Date.parse("2024-12-28 23:59:59+00:00")),
                 gross: 700,
             },
             deductions: new Map([
@@ -25,6 +25,6 @@ test("ein 16 jähriger Lerneneder mit einem Monatsgehalt von 700.-", () => {
         const actual = calculatePayslip(salary);
         
         //assert
-        expect(actual.salary).toEqual(exprected.salary);
+        expect(actual).toEqual(exprected);
          
 });
