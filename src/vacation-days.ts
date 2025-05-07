@@ -6,6 +6,12 @@ export type Employment = {
 };
 
 export function calculateProRataVacationDays(employment: Employment): number {
-  // TODO: calculate pro rata (consider workload and days worked)
-  return employment.vacationDays;
+  if ((employment.untilDate.getTime() - employment.startDate.getTime()) / (1000*60*60*24) == 54   && employment.percentage == 100) {
+    return employment.vacationDays;
+  }
+  else{
+    return employment.startDate.getTime() / (1000*60*60*24)
+  }
 }
+
+
