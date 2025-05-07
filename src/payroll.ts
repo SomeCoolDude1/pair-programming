@@ -25,10 +25,11 @@ export type Payslip = {
 export function calculatePayslip(salary: Salary): Payslip {
   // TODO: implement
   const today = new Date()
+  var yearsOld = (today.getTime()- salary.born.getTime()) / 31536000000
   var deductions = new Map()
   var totalDeductions = 0;
 
-  if ((today.getUTCDate() - salary.born.getUTCDate()) >= 17.0) {
+  if ( yearsOld >= 17.0) {
     deductions.set("AHV",8.7)
     deductions.set("IV",1.4)
     deductions.set("EO",0.5)
@@ -36,6 +37,9 @@ export function calculatePayslip(salary: Salary): Payslip {
   if ((salary.gross * 13) >= 2500) {
     deductions.set("ALV",1.1)
     deductions.set("NBU",0.73)
+  }
+  if ((salary.gross * 13) >= 22680) {
+    deductions.set("PK",8.9)
   }
 
   deductions.forEach((value,key) => {
@@ -46,7 +50,7 @@ export function calculatePayslip(salary: Salary): Payslip {
     salary: salary,
     deductions: deductions,
     totalDeductions: totalDeductions,
-    net: salary.gross - (salary.gross / 100 * totalDeductions),
+    net: Number((salary.gross - (salary.gross / 100 * totalDeductions)).toFixed(2)),
   };
   return result;
 }
